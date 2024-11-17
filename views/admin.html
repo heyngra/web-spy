@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+    </script>
+</head>
+<body>
+<nav class="navbar">
+    <ul class="navlist">
+        <li><a href="/">Home</a></li>
+        <li><a href="/youtube">YouTube</a></li>
+        <li><a href="/about">About</a></li>
+    </ul>
+</nav>
+<div class="content">
+    <table>
+        <tr>
+            <th>Identifier</th>
+            <th>Target</th>
+        </tr>
+        <% for(var i = 0; i < data.length; i++) {
+            %>
+            <tr>
+                <td><%= data[i].log1 %></td>
+                <td><%= data[i].log2 %></td>
+            </tr>
+            <% } %>
+    </table>
+</div>
+</body>
+</html>
