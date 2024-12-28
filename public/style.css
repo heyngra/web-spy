@@ -21,6 +21,10 @@ nav ul {
 
 nav li {
     float: left;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
 }
 
 nav li a {
@@ -38,4 +42,38 @@ nav li a {
     color: white;
     margin-left: auto;
     margin-right: auto;
+}
+.content table {
+    width: 100%;
+    border-collapse: separate;
+}
+table tr td {
+    width: 50%;
+    font-size: 2em;
+}
+
+.css-button-shadow-border--red {
+    min-width: 130px;
+    height: 40px;
+    color: #fff;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+    background: #d90429;
+  }
+.css-button-shadow-border--red:hover {
+background-color: #ef233c;
+}
+.css-button-shadow-border--red:active {
+top: 2px;
+}
+span {
+    color: white;
 }

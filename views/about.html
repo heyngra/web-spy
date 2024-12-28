@@ -23,5 +23,20 @@
 
         Pellentesque porta, tortor in porttitor dapibus, diam lectus hendrerit odio, eu pretium nisi ante at ex. Nunc suscipit lectus sed dui lacinia, iaculis venenatis sem suscipit. Suspendisse potenti. Etiam vel vestibulum dui, a tincidunt nunc. Donec vel nibh cursus, eleifend ipsum nec, molestie tortor. Aliquam porta lacus non risus varius, in ornare augue ornare. Vestibulum facilisis tempus vulputate. Etiam condimentum, magna vel venenatis iaculis, eros odio gravida erat, vitae semper justo est a ligula. Curabitur vel mi velit. Aliquam erat volutpat. Mauris eget ipsum metus.</p>
 </div>
+Your username is: <span id="username"></span>
+<script src="/etagtracker"></script>
+<script>
+    fetch("/username", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            etag: etag,
+        })
+    }).then(res=>res.text()).then(res=>{
+        document.getElementById("username").innerText = res
+    })
+</script>
 </body>
 </html>

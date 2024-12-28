@@ -2,6 +2,8 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="/etagtracker"></script>
+    
 </head>
 <body>
     <nav class="navbar">
@@ -14,6 +16,23 @@
     <div class="content">
         <h1>Home</h1>
         <p>Welcome to the home page!</p>
+        <p>Set your username!</p>
+        <input type="text" id="username"/>
+        <button id="b">Send</button>
     </div>
+    <script>
+        document.getElementById("b").onclick = () => {
+            fetch("/usernameset", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    etag: etag,
+                    username: document.getElementById("username").value,
+                })
+            })
+        }
+    </script>
 </body>
 </html>

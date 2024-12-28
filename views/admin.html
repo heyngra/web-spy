@@ -3,9 +3,66 @@
 <head>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script>
+        let image = "";
+        document.onpaste = (event) => {
+            const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+            for (const index in items) {
+                const item = items[index];
+                if (item.kind === 'file') {
+                    const blob = item.getAsFile();
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        image = event.target.result;
+                    };
+                    reader.readAsDataURL(blob);
+                }
+            }
+        }
+        window.onload = () => {
+            document.getElementById("imger").onclick = () => {
+                if (image) {
+                    const identifier = prompt("Enter identifier");
+                    fetch("/imgcreate", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            identify: identifier,
+                            imgContent: image
+                        })
+                    }).then((res) => res.text()).then((res) => {
+                        alert(window.location.origin+"/"+res);
+                    })
+                }
+            }
+            document.getElementById("url_make").onclick = () => {
+                const url = document.getElementById("url_place").value;
+                const identifier = prompt("Enter identifier");
+                fetch("/urlcreate", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        identify: identifier,
+                        redirect: url
+                    })
+                }).then((res) => res.text()).then((res) => {
+                    alert(window.location.origin+"/"+res);
+                })
+            }
+        }
+
         setTimeout(() => {
+            if (URLSearchParams) {
+                const params = new URLSearchParams(window.location.search);
+                if (params.has('debug')) {
+                    return
+                }
+            }
             window.location.reload();
-        }, 1000);
+        }, 5000);
     </script>
 </head>
 <body>
@@ -14,6 +71,9 @@
         <li><a href="/">Home</a></li>
         <li><a href="/youtube">YouTube</a></li>
         <li><a href="/about">About</a></li>
+        <li><input type="button" class="css-button-shadow-border--red" value="Fancy Button" id="imger"></li>
+        <li><input type="text" value="" placeholder="url" id="url_place"></li>
+        <li><input type="button" class="css-button-shadow-border--red" value="Fancy Button 2" id="url_make"></li>
     </ul>
 </nav>
 <div class="content">
@@ -22,7 +82,7 @@
             <th>Identifier</th>
             <th>Target</th>
         </tr>
-        <% for(var i = 0; i < data.length; i++) {
+        <% for(var i = data.length-1 ; i >= 0; i--) {
             %>
             <tr>
                 <td><%= data[i].log1 %></td>
